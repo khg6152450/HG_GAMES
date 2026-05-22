@@ -1,0 +1,436 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+:root {
+    --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    --panel-bg: rgba(255, 255, 255, 0.05);
+    --panel-border: rgba(255, 255, 255, 0.1);
+    --accent: #00d2ff;
+    --text-primary: #ffffff;
+    
+    /* Puyo Neon Colors (Optimized for contrast) */
+    --puyo-red: #ff3366;
+    --puyo-blue: #0099ff;
+    --puyo-green: #33cc66;
+    --puyo-yellow: #ffcc00;
+    --puyo-purple: #b300ff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-primary);
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    padding: 10px;
+}
+
+/* Main Container */
+.game-container {
+    width: 100%;
+    max-width: 480px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.header h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #00d2ff, #3a7bd5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+}
+
+/* Layout */
+.game-layout {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: flex-start;
+    flex-grow: 1;
+    margin-bottom: 10px;
+}
+
+/* Side Panels */
+.side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 90px;
+}
+
+.info-box {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 8px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.info-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+/* Next Puyo Box */
+.next-preview {
+    width: 60px;
+    height: 90px;
+    margin: 5px auto 0;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#next-puyo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+}
+
+/* Board Wrapper */
+.board-wrapper {
+    position: relative;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 16px;
+    border: 2px solid var(--panel-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.03);
+    width: 240px;
+    height: 480px;
+}
+
+/* Grid Cell & Puyos */
+.cell {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.puyo {
+    width: 90%;
+    height: 90%;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: inset 0 -4px 8px rgba(0,0,0,0.3), inset 0 4px 8px rgba(255,255,255,0.4);
+    transition: transform 0.15s ease-out, top 0.1s linear;
+    animation: jelly-breath 3s infinite ease-in-out;
+}
+
+/* Dynamic Connection Shapes (Visual Links) */
+.puyo.connect-up { border-top-left-radius: 20%; border-top-right-radius: 20%; }
+.puyo.connect-down { border-bottom-left-radius: 20%; border-bottom-right-radius: 20%; }
+.puyo.connect-left { border-top-left-radius: 20%; border-bottom-left-radius: 20%; }
+.puyo.connect-right { border-top-right-radius: 20%; border-bottom-right-radius: 20%; }
+
+/* Cute Eyes for Puyos */
+.puyo::before, .puyo::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    top: 30%;
+}
+.puyo::before { left: 25%; }
+.puyo::after { right: 25%; }
+
+/* Black Pupils */
+.puyo::before {
+    box-shadow: inset -1px -1px 0 #000, 1px 1px 1px rgba(0,0,0,0.5);
+    background-image: radial-gradient(circle, #000 1.5px, #fff 1.5px);
+}
+.puyo::after {
+    box-shadow: inset 1px -1px 0 #000, -1px 1px 1px rgba(0,0,0,0.5);
+    background-image: radial-gradient(circle, #000 1.5px, #fff 1.5px);
+}
+
+/* Puyo Color Variations */
+.puyo.red { background: var(--puyo-red); box-shadow: 0 0 10px rgba(255,51,102,0.4), inset 0 -4px 8px rgba(0,0,0,0.3), inset 0 4px 8px rgba(255,255,255,0.4); }
+.puyo.blue { background: var(--puyo-blue); box-shadow: 0 0 10px rgba(0,153,255,0.4), inset 0 -4px 8px rgba(0,0,0,0.3), inset 0 4px 8px rgba(255,255,255,0.4); }
+.puyo.green { background: var(--puyo-green); box-shadow: 0 0 10px rgba(51,204,102,0.4), inset 0 -4px 8px rgba(0,0,0,0.3), inset 0 4px 8px rgba(255,255,255,0.4); }
+.puyo.yellow { background: var(--puyo-yellow); box-shadow: 0 0 10px rgba(255,204,0,0.4), inset 0 -4px 8px rgba(0,0,0,0.3), inset 0 4px 8px rgba(255,255,255,0.4); }
+.puyo.purple { background: var(--puyo-purple); box-shadow: 0 0 10px rgba(179,0,255,0.4), inset 0 -4px 8px rgba(0,0,0,0.3), inset 0 4px 8px rgba(255,255,255,0.4); }
+
+/* Ghost Indicator for landing preview (subtle dashed outline) */
+.puyo.ghost {
+    opacity: 0.3;
+    box-shadow: none;
+    border: 2px dashed rgba(255,255,255,0.5);
+    background: transparent !important;
+}
+.puyo.ghost::before, .puyo.ghost::after { display: none; }
+
+/* Pop and Wiggle Animations */
+.puyo.pop {
+    animation: puyo-pop 0.3s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.puyo.wiggle {
+    animation: puyo-wiggle 0.15s alternate infinite ease-in-out;
+}
+
+@keyframes jelly-breath {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04, 0.96); }
+}
+
+@keyframes puyo-pop {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.8; }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+@keyframes puyo-wiggle {
+    0% { transform: rotate(-5deg) scale(1.05, 0.95); }
+    100% { transform: rotate(5deg) scale(0.95, 1.05); }
+}
+
+/* Combo/Chain Alert Banner */
+.combo-banner {
+    position: absolute;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255,215,0,0.8), 0 0 20px rgba(255,69,0,0.6);
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10;
+}
+
+.combo-banner.active {
+    opacity: 1;
+    transform: translateY(0) scale(1.1);
+}
+
+/* Mobile Controllers */
+.controller {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--panel-border);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 12px;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.dpad, .actions {
+    display: flex;
+    gap: 10px;
+}
+
+.control-btn {
+    width: 52px;
+    height: 52px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 800;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: background 0.1s, transform 0.05s, box-shadow 0.1s;
+    touch-action: manipulation;
+}
+
+.control-btn:active {
+    background: var(--accent);
+    transform: scale(0.9);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.6);
+    color: #0f0c29;
+}
+
+.action-btn {
+    background: rgba(0, 210, 255, 0.15);
+    border-color: rgba(0, 210, 255, 0.3);
+    color: var(--accent);
+}
+
+/* Options Bottom Menu */
+.options {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 8px;
+    margin-bottom: 5px;
+}
+
+.option-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--panel-border);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.option-btn:active {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(0.95);
+}
+
+/* Overlays */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 12, 41, 0.95);
+    backdrop-filter: blur(15px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease-in-out;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.overlay h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #00d2ff, #ff3366);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+.menu-desc {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 30px;
+    text-align: center;
+    max-width: 280px;
+    line-height: 1.5;
+}
+
+.start-btn {
+    background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+    color: white;
+    border: none;
+    padding: 14px 40px;
+    border-radius: 30px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0, 210, 255, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.start-btn:active {
+    transform: scale(0.95);
+}
+
+.final-score-box {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    padding: 15px 30px;
+    border-radius: 16px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 450px) {
+    #game-board {
+        width: 210px;
+        height: 420px;
+    }
+    .puyo::before, .puyo::after {
+        width: 5px;
+        height: 5px;
+    }
+    .side-panel {
+        width: 80px;
+    }
+    .info-value {
+        font-size: 1rem;
+    }
+    .control-btn {
+        width: 46px;
+        height: 46px;
+        font-size: 1.2rem;
+    }
+    .header h1 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-height: 700px) {
+    #game-board {
+        width: 180px;
+        height: 360px;
+    }
+    .control-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 1.1rem;
+    }
+    body {
+        padding: 5px;
+    }
+}
