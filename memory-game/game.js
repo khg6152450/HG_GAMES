@@ -10,7 +10,7 @@ const CARD_SET = [
     { name: 'pineapple', emoji: '🍍', image: null },
     { name: 'lemon', emoji: '🍋', image: null },
     { name: 'kiwi', emoji: '🥝', image: null },
-    { name: 'blueberry', emoji: '🫐', image: null },
+    { name: 'cherry', emoji: '🍒', image: null }, // 깨지는 블루베리 대신 호환성 높고 확실히 구분되는 체리로 변경
     { name: 'avocado', emoji: '🥑', image: null },
     { name: 'orange', emoji: '🍊', image: null },
     { name: 'strawberry', emoji: '🍓', image: null }, // 딸기는 형태가 뾰족하여 유지
