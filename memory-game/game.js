@@ -1,27 +1,28 @@
 /**
  * 🍎 카드 데이터 설정
- * 나중에 사진으로 바꾸고 싶을 때, image 속성에 경로를 입력하세요.
+ * 나중에 개별 사진으로 바꾸고 싶을 때, image 속성에 경로를 입력하세요.
  * (예: image: 'assets/photo1.jpg')
  */
 const CARD_SET = [
-    { name: 'apple', emoji: '🍎', image: null },
     { name: 'banana', emoji: '🍌', image: null },
     { name: 'grape', emoji: '🍇', image: null },
-    { name: 'strawberry', emoji: '🍓', image: null },
-    { name: 'orange', emoji: '🍊', image: null },
     { name: 'watermelon', emoji: '🍉', image: null },
-    { name: 'peach', emoji: '🍑', image: null },
     { name: 'pineapple', emoji: '🍍', image: null },
     { name: 'lemon', emoji: '🍋', image: null },
-    { name: 'cherry', emoji: '🍒', image: null },
     { name: 'kiwi', emoji: '🥝', image: null },
-    { name: 'melon', emoji: '🍈', image: null },
-    { name: 'pear', emoji: '🍐', image: null },
     { name: 'blueberry', emoji: '🫐', image: null },
-    { name: 'pomegranate', emoji: '68213;🍎', image: null }, // Using apple for now
-    { name: 'mango', emoji: '🥭', image: null },
+    { name: 'avocado', emoji: '🥑', image: null },
+    { name: 'orange', emoji: '🍊', image: null },
+    { name: 'strawberry', emoji: '🍓', image: null },
+    { name: 'cherry', emoji: '🍒', image: null },
     { name: 'coconut', emoji: '🥥', image: null },
-    { name: 'avocado', emoji: '🥑', image: null }
+    { name: 'mango', emoji: '🥭', image: null },
+    { name: 'pear', emoji: '🍐', image: null },
+    { name: 'melon', emoji: '🍈', image: null },
+    // 헷갈리는 붉은색 과일 대신 확실히 구분되는 동물 아이콘으로 배치
+    { name: 'dog', emoji: '🐶', image: null },
+    { name: 'cat', emoji: '🐱', image: null },
+    { name: 'tiger', emoji: '🐯', image: null }
 ];
 
 let cards = [];
@@ -58,8 +59,8 @@ function resetGame() {
     
     // Prepare card list (pairs)
     const pairsCount = (currentRows * currentCols) / 2;
-    const selectedFruits = [...CARD_SET].slice(0, pairsCount);
-    const gameCards = [...selectedFruits, ...selectedFruits];
+    const selectedCards = [...CARD_SET].slice(0, pairsCount);
+    const gameCards = [...selectedCards, ...selectedCards];
     
     // Shuffle
     shuffle(gameCards);
@@ -169,3 +170,4 @@ function showMenu() {
     clearInterval(timerInterval);
     timerInterval = null;
 }
+
