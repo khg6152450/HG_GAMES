@@ -13,16 +13,16 @@ const CARD_SET = [
     { name: 'blueberry', emoji: '🫐', image: null },
     { name: 'avocado', emoji: '🥑', image: null },
     { name: 'orange', emoji: '🍊', image: null },
-    { name: 'strawberry', emoji: '🍓', image: null },
-    { name: 'cherry', emoji: '🍒', image: null },
+    { name: 'strawberry', emoji: '🍓', image: null }, // 딸기는 형태가 뾰족하여 유지
     { name: 'coconut', emoji: '🥥', image: null },
     { name: 'mango', emoji: '🥭', image: null },
     { name: 'pear', emoji: '🍐', image: null },
     { name: 'melon', emoji: '🍈', image: null },
-    // 헷갈리는 붉은색 과일 대신 확실히 구분되는 동물 아이콘으로 배치
-    { name: 'dog', emoji: '🐶', image: null },
-    { name: 'cat', emoji: '🐱', image: null },
-    { name: 'tiger', emoji: '🐯', image: null }
+    // 동물을 제외하고, 과일/식물 테마를 유지하되 확실히 구분되는 채소/식물류로 대체
+    { name: 'corn', emoji: '🌽', image: null },     // 옥수수 (노란색/초록색)
+    { name: 'carrot', emoji: '🥕', image: null },   // 당근 (주황색, 길쭉함)
+    { name: 'mushroom', emoji: '🍄', image: null }, // 버섯 (빨간 갓 모양)
+    { name: 'chestnut', emoji: '🌰', image: null }  // 밤 (갈색, 뾰족함)
 ];
 
 let cards = [];
